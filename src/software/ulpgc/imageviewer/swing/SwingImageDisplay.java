@@ -2,11 +2,14 @@ package software.ulpgc.imageviewer.swing;
 
 import software.ulpgc.imageviewer.ImageDisplay;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +37,7 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+
                 released.offset(e.getX() - initShift);
             }
 
@@ -73,11 +77,30 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
             "green", Color.GREEN,
             "blue", Color.BLUE
     );
-    @Override
+    /*@Override
     public void paint(Graphics g) {
+        //C:\Users\Usuario\Pictures\Wallpapers\Captain Harlock.jpg
+        g.drawImage("C:\\Users\\Usuario\\Pictures\\Wallpapers\\Captain Harlock.jpg",800,600);
+        /*
         for (Paint paint : paints) {
             g.setColor(colors.get(paint.id));
             g.fillRect(paint.offset, 0, 800, 600);
+        }
+    }*/
+
+    @Override
+    public void paint(Graphics g) {
+        try {
+            Image image = ImageIO.read(new File("C:\\Users\\Usuario\\Pictures\\Wallpapers\\Captain Harlock.jpg"));
+
+            // Uncomment the following code if you want to use the paints list
+        for (Paint paint : paints) {
+            g.drawImage(image, paint.offset, 0, 100,100,null);
+            /*g.setColor(colors.get(paint.id));
+            g.fillRect(paint.offset, 0, 800, 600);*/
+        }
+        } catch (IOException e) {
+            e.printStackTrace(); // Handle the exception appropriately
         }
     }
 
