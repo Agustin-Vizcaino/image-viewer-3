@@ -3,17 +3,13 @@ package software.ulpgc.imageviewer.swing;
 import software.ulpgc.imageviewer.ImageDisplay;
 import software.ulpgc.imageviewer.ImageFile;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class SwingImageDisplay extends JPanel implements ImageDisplay {
     private Shift shift = Shift.Null;
@@ -73,22 +69,6 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
         paints.clear();
     }
 
-    private static final Map<String,Color> colors = Map.of(
-            "red", Color.RED,
-            "green", Color.GREEN,
-            "blue", Color.BLUE
-    );
-    /*@Override
-    public void paint(Graphics g) {
-        //C:\Users\Usuario\Pictures\Wallpapers\Captain Harlock.jpg
-        g.drawImage("C:\\Users\\Usuario\\Pictures\\Wallpapers\\Captain Harlock.jpg",800,600);
-        /*
-        for (Paint paint : paints) {
-            g.setColor(colors.get(paint.id));
-            g.fillRect(paint.offset, 0, 800, 600);
-        }
-    }*/
-
     @Override
     public void paint(Graphics g) {
         for (Paint paint : paints) {
@@ -96,11 +76,9 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
             int x = paint.offset;
             int y = getHeight() / 2 - proportions[1] / 2;
 
-            // Draw white rectangle
             g.setColor(Color.WHITE);
             g.fillRect(x, 0, getWidth(), getHeight());
 
-            // Draw scaled image
             g.drawImage(paint.image.getImage(), x, y, proportions[0], proportions[1], null);
         }
     }

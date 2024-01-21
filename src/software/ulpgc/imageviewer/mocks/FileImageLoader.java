@@ -4,17 +4,14 @@ import software.ulpgc.imageviewer.ImageFile;
 import software.ulpgc.imageviewer.ImageLoader;
 import software.ulpgc.imageviewer.LoadedImage;
 
-import javax.imageio.ImageIO;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.awt.Image;
 
 public class FileImageLoader implements ImageLoader {
 
-    private List<ImageFile> images = new ArrayList<ImageFile>();
+    private List<ImageFile> images = new ArrayList<>();
     @Override
     public void setupImagesFromArray(String[] paths) {
         for (String i : paths) {
@@ -47,7 +44,6 @@ public class FileImageLoader implements ImageLoader {
 
     @Override
     public ImageFile get(int index) {
-        System.out.println(index + " " + index + " " + images.size());
         return images.get(mod(index, images.size()));
     }
 
