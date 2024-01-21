@@ -11,6 +11,7 @@ import java.util.List;
 public class Main {
     //final static List<String> paths = new ArrayList<String>();
     final static String path = "C:\\Users\\Usuario\\Pictures\\Wallpapers\\";
+    //final static String path = "C:\\Users\\Usuario\\Desktop";
     private static ImageLoader loader;
     static {
         loader = new FileImageLoader();
@@ -18,9 +19,13 @@ public class Main {
     public static void main(String[] args) {
         MainFrame frame = new MainFrame();
         loader.setupImagesFromDir(path);
-        ImagePresenter presenter = new ImagePresenter(frame.getImageDisplay(), loader);
-        presenter.show(image());
-        frame.setVisible(true);
+        if (loader.imageAmount() > 0) {
+            ImagePresenter presenter = new ImagePresenter(frame.getImageDisplay(), loader);
+            presenter.show(image());
+            frame.setVisible(true);
+        } else {
+            System.out.println("Error: no images found");
+        }
     }
 
     private static ImageFile image() {

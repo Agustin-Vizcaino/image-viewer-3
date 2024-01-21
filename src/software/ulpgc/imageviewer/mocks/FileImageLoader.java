@@ -47,6 +47,11 @@ public class FileImageLoader implements ImageLoader {
         return images.get(mod(index, images.size()));
     }
 
+    @Override
+    public int imageAmount() {
+        return images.size();
+    }
+
     int mod(int a, int b) {
         int c = a % b;
         return (c < 0) ? c + b : c;
