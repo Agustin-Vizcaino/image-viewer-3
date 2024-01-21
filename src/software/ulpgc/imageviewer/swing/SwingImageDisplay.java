@@ -1,6 +1,7 @@
 package software.ulpgc.imageviewer.swing;
 
 import software.ulpgc.imageviewer.ImageDisplay;
+import software.ulpgc.imageviewer.ImageFile;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -62,8 +63,8 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
     }
 
     @Override
-    public void paint(String id, int offset) {
-        paints.add(new Paint(id, offset));
+    public void paint(ImageFile image, int offset) {
+        paints.add(new Paint(image, offset));
         repaint();
     }
 
@@ -114,6 +115,6 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
         this.released = released != null ? released : Released.Null;
     }
 
-    private record Paint(String id, int offset) {
+    private record Paint(ImageFile image, int offset) {
     }
 }

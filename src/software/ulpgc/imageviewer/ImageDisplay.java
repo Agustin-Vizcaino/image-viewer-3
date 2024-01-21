@@ -1,7 +1,7 @@
 package software.ulpgc.imageviewer;
 
 public interface ImageDisplay {
-    void paint(String id, int offset);
+    void paint(ImageFile image, int offset);
     int getWidth();
     void clear();
     void on(Shift shift);
