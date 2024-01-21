@@ -8,16 +8,38 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.awt.Image;
 
 public class FileImageLoader implements ImageLoader {
 
     private List<ImageFile> images = new ArrayList<ImageFile>();
-
-    public void setupImages(String[] paths) {
+    @Override
+    public void setupImagesFromArray(String[] paths) {
         for (String i : paths) {
-            System.out.println(i);
+            ImageFile buffer = load(i, images.size());
+            if (buffer.getImage() != null) images.add(buffer);
+        }
+    }
+
+    @Override
+    public void setupImagesFromDir(String path) {
+        List<String> imagePaths = new ArrayList<>();
+        File directory = new File(path);
+
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles((dir, name) ->
+                    name.toLowerCase().endsWith(".jpg") || name.toLowerCase().endsWith(".jpeg") ||
+                            name.toLowerCase().endsWith(".png") || name.toLowerCase().endsWith(".gif") ||
+                            name.toLowerCase().endsWith(".bmp") || name.toLowerCase().endsWith(".tiff"));
+
+            if (files != null) {
+                Arrays.stream(files).map(File::getAbsolutePath).forEach(imagePaths::add);
+            }
+        }
+
+        for (String i : imagePaths) {
             ImageFile buffer = load(i, images.size());
             if (buffer.getImage() != null) images.add(buffer);
         }
@@ -25,7 +47,7 @@ public class FileImageLoader implements ImageLoader {
 
     @Override
     public ImageFile get(int index) {
-        System.out.println(index + " " + mod(index, images.size()));
+        System.out.println(index + " " + index + " " + images.size());
         return images.get(mod(index, images.size()));
     }
 

@@ -1,6 +1,7 @@
 package software.ulpgc.imageviewer;
 
 public interface ImageLoader {
-    void setupImages(String[] paths);
+    void setupImagesFromArray(String[] paths);
+    void setupImagesFromDir(String path);
     ImageFile get(int index);
 }
