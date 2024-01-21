@@ -92,11 +92,16 @@ public class SwingImageDisplay extends JPanel implements ImageDisplay {
     @Override
     public void paint(Graphics g) {
         for (Paint paint : paints) {
-            int[] proportions = paint.image.resize(getWidth(),getHeight());
-            System.out.println(proportions[0]);
-            g.drawImage(paint.image.getImage(), paint.offset, getHeight() / 2 - proportions[1] / 2, proportions[0],proportions[1],null);
-            /*g.setColor(colors.get(paint.id));
-            g.fillRect(paint.offset, 0, 800, 600);*/
+            int[] proportions = paint.image.resize(getWidth(), getHeight());
+            int x = paint.offset;
+            int y = getHeight() / 2 - proportions[1] / 2;
+
+            // Draw white rectangle
+            g.setColor(Color.WHITE);
+            g.fillRect(x, 0, getWidth(), getHeight());
+
+            // Draw scaled image
+            g.drawImage(paint.image.getImage(), x, y, proportions[0], proportions[1], null);
         }
     }
 
